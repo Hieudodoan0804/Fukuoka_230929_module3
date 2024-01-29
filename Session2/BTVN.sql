@@ -173,8 +173,8 @@ group by OrderID;
 -- 2. Báo cáo số lượng sản phẩm đã bán theo danh mục
 select c.CategoryName, sum(od.Quantity) as tongsanphamdaban
 from Categories c
-join Products p on c.CategoryID = p.CategoryID
-join OrderDetails od on p.ProductID = od.ProductID
+inner join Products p on c.CategoryID = p.CategoryID
+inner join OrderDetails od on p.ProductID = od.ProductID
 group by c.CategoryName;
 -- 3. Báo cáo danh sách khách hàng và số lượng đơn hàng mỗi khách hàng đã đặt
 select c.FullName, count(o.OrderID) as tongdonhang
@@ -193,7 +193,7 @@ group by p.ProductName,r.Comment;
 select p.ProductName,
 sum(od.Quantity) as tongsoluongdathang
 from Products p
-join OrderDetails od on p.ProductID = od.ProductID
+inner join OrderDetails od on p.ProductID = od.ProductID
 group by p.ProductName
 order by tongsoluongdathang desc;
 -- 7. Tìm kiếm sản phẩm dựa trên mức đánh giá trung bình
@@ -205,7 +205,7 @@ having danhgiatrungbinh >= 2;
 -- 8. Tìm khách hàng có đơn hàng có giá trị cao nhất
 select c.FullName,max(o.TotalAmount) as giatridonhangcaonhat
 from Customers c
-join Orders o on c.CustomerID = o.CustomerID
+inner join Orders o on c.CustomerID = o.CustomerID
 group by c.FullName
 order by giatridonhangcaonhat desc
 limit 1;
